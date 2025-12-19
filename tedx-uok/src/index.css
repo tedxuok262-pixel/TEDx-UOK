@@ -1,9 +1,11 @@
 @import "tailwindcss";
+@config "../tailwind.config.ts";
+
 
 @font-face {
   font-family: "HelveticaNeue";
   src: url("./assets/fonts/HelveticaNeueHv.ttf") format("truetype");
-  font-weight: 800;
+  font-weight: 800; 
   font-style: normal;
   font-display: swap;
 }
@@ -32,30 +34,47 @@
   font-display: swap;
 }
 
-:root {
-  font-family: "HelveticaNeue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@layer base {
+  :root {
+    /* TEDx Official Colors */
+    --tedx-red: 348 100% 46%; 
+    --tedx-black: 0 0% 0%;    
+    --tedx-white: 0 0% 100%; 
+    
+    /* Card styling */
+    --card-dark: 0 0% 5.5%;   
+    --card-border: 0 0% 12%;  
+    
+    /* Shadcn/UI Compatible Tokens */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+    --card: 0 0% 5.5%;
+    --card-foreground: 0 0% 100%;
 
-  background-color: #242424;
+    --popover: 0 0% 5.5%;
+    --popover-foreground: 0 0% 100%;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    --primary: 348 100% 46%;
+    --primary-foreground: 0 0% 100%;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 348 100% 46%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 348 100% 46%;
+
+    --radius: 0.75rem;
 
 body {
   margin: 0;
@@ -63,39 +82,93 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
+    font-weight: 800; 
+    letter-spacing: 0;
+  }
+  
+  a {
+    font-weight: 500;
+    text-decoration: inherit;
+    transition: color 0.25s;
+  }
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@keyframes fade-in {
+  from {
+    opacity: 0;
   }
-  a:hover {
-    color: #747bff;
+  to {
+    opacity: 1;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@keyframes countdown-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+  }
+
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 500ms;
   }
 }
