@@ -3,10 +3,12 @@ import { ArrowRight, Globe, Handshake, Lightbulb } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
+
 // ඔයාගේ ACTUAL credentials දාන්න
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 
 export default function AboutPage() {
   const [theme, setTheme] = useState('');
