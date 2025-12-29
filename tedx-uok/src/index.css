@@ -1,55 +1,4 @@
 @import "tailwindcss";
-@config "../tailwind.config.ts";
-
-:root {
-  /* Typography */
-  font-family: "HelveticaNeue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  /* Brand colors (Strict) */
-  --tedx-red: #eb0028;
-  --black: #000000;
-  --white: #ffffff;
-
-  /* Semantic Colors */
-  --background: var(--black);
-  --foreground: var(--white);
-  --card-bg: #0e0e0e;
-  --card-border: #1f1f1f;
-
-  color-scheme: dark;
-  color: var(--white);
-  background-color: var(--black);
-
-  --primary: 348 100% 46%;
-  --primary-foreground: 0 0% 100%;
-}
-
-:root {
-  /* Typography */
-  font-family: "HelveticaNeue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  /* Brand colors (Strict) */
-  --tedx-red: #eb0028;
-  --black: #000000;
-  --white: #ffffff;
-
-  /* Semantic Colors */
-  --background: var(--black);
-  --foreground: var(--white);
-  --card-bg: #0e0e0e;
-  --card-border: #1f1f1f;
-
-  color-scheme: dark;
-  color: var(--white);
-  background-color: var(--black);
-
-  --primary: 348 100% 46%;
-  --primary-foreground: 0 0% 100%;
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                    FONTS                                   */
@@ -58,7 +7,6 @@
 @font-face {
   font-family: "HelveticaNeue";
   src: url("./assets/fonts/HelveticaNeueHv.ttf") format("truetype");
-  font-weight: 800;
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -87,10 +35,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-/* -------------------------------------------------------------------------- */
-/*                                    BASE                                    */
-/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                                    BASE                                    */
@@ -188,8 +132,9 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: "HelveticaNeue", system-ui, Avenir, Helvetica, Arial,
-      sans-serif;
+    background-color: black;
+    /* Hard fallback */
+    font-family: "HelveticaNeue", system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0;
@@ -205,217 +150,172 @@
   h4,
   h5,
   h6 {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
-      font-weight: 700;
-      line-height: 1.1;
-      margin: 0;
-      letter-spacing: 0;
-    }
-
-    h1 {
-      font-size: 3.2em;
-    }
-
-    /* Navbar Link Styling */
-    a {
-      font-weight: 500;
-      color: var(--white);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    a:hover {
-      color: hsl(var(--tedx-red));
-    }
-
-    /* Buttons Reset */
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-      outline: none;
-    }
-
-    button:focus-visible {
-      outline: 2px solid hsl(var(--tedx-red));
-      outline-offset: 2px;
-    }
+    font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: 0;
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                                COMPONENTS                                  */
-  /* -------------------------------------------------------------------------- */
-
-  @layer components {
-    /* Button Variants */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.5rem;
-      font-weight: 700;
-      border-radius: 9999px;
-      transition: all 0.2s ease;
-      font-size: 1rem;
-    }
-
-    .btn-primary {
-      background: hsl(var(--tedx-red));
-      color: var(--white);
-    }
-
-    .btn-primary:hover,
-    .btn-primary:focus {
-      background: #cf001f;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: hsl(var(--tedx-red));
-      border: 1px solid hsl(var(--tedx-red));
-    }
-
-    .btn-secondary:hover,
-    .btn-secondary:focus {
-      background: rgba(235, 0, 40, 0.1);
-    }
-
-    /* Core Card Style */
-    .card-core {
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    }
-
-    /* Page Transition */
-    .page-transition {
-      animation: fadeInUp 360ms ease both;
-    }
+  h1 {
+    font-size: 3.2em;
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                                UTILITIES                                   */
-  /* -------------------------------------------------------------------------- */
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Navbar Link Styling */
+  a {
+    font-weight: 500;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s ease;
   }
 
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  a:hover {
+    color: hsl(var(--tedx-red));
   }
 
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
+  /* Buttons Reset */
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    outline: none;
   }
 
-  @keyframes countdown-pulse {
-    0%,
-    100% {
-      transform: scale(1);
-    }
+  button:focus-visible {
+    outline: 2px solid hsl(var(--tedx-red));
+    outline-offset: 2px;
+  }
+}
 
-    50% {
-      transform: scale(1.02);
-    }
+/* -------------------------------------------------------------------------- */
+/*                                COMPONENTS                                  */
+/* -------------------------------------------------------------------------- */
+
+@layer components {
+
+  /* Button Variants */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+    font-size: 1rem;
   }
 
-  @layer utilities {
-    .animate-fade-in-up {
-      animation: fade-in-up 0.6s ease-out forwards;
-    }
+  .btn-primary {
+    background: hsl(var(--tedx-red));
+    color: var(--white);
+  }
 
-    .animate-fade-in {
-      animation: fade-in 0.4s ease-out forwards;
-    }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background: #cf001f;
+    transform: translateY(-1px);
+  }
 
-    .animation-delay-100 {
-      animation-delay: 100ms;
-    }
+  .btn-secondary {
+    background: transparent;
+    color: hsl(var(--tedx-red));
+    border: 1px solid hsl(var(--tedx-red));
+  }
 
-    .animation-delay-200 {
-      animation-delay: 200ms;
-    }
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    background: rgba(235, 0, 40, 0.1);
+  }
 
-    .animation-delay-300 {
-      animation-delay: 300ms;
-    }
+  /* Core Card Style */
+  .card-core {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  }
 
-    .animation-delay-400 {
-      animation-delay: 400ms;
-    }
+  /* Page Transition */
+  .page-transition {
+    animation: fadeInUp 360ms ease both;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                UTILITIES                                   */
+/* -------------------------------------------------------------------------- */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 
     .animation-delay-500 {
       animation-delay: 500ms;
     }
   }
+}
 
-  @keyframes countdown-pulse {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-
-    50% {
-      transform: scale(1.02);
-    }
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
 
-  @layer utilities {
-    .animate-fade-in-up {
-      animation: fade-in-up 0.6s ease-out forwards;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    .animate-fade-in {
-      animation: fade-in 0.4s ease-out forwards;
-    }
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
 
-    .animation-delay-100 {
-      animation-delay: 100ms;
-    }
+  to {
+    opacity: 1;
+  }
+}
 
-    .animation-delay-200 {
-      animation-delay: 200ms;
-    }
+@keyframes countdown-pulse {
 
-    .animation-delay-300 {
-      animation-delay: 300ms;
-    }
+  0%,
+  100% {
+    transform: scale(1);
+  }
 
-    .animation-delay-400 {
-      animation-delay: 400ms;
-    }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+  }
+
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
 
     .animation-delay-500 {
       animation-delay: 500ms;

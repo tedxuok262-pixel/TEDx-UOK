@@ -1,15 +1,21 @@
 import { useSEO } from "../../hooks/useSEO";
 import { seoConfig } from "../../config/seo";
 
+const TedX = () => (
+  <span>
+    TED<sup className="relative -top-1">x</sup> UoK
+  </span>
+);
+
 export default function AccessibilityPage() {
   useSEO(seoConfig.accessibility);
 
   return (
     <main className="bg-black w-full">
-      <section className="px-6 py-32">
+      <section className="px-6 pt-24 pb-32">
         <div className="mx-auto max-w-4xl space-y-12">
           {/* Header */}
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-1">
             <h1 className="text-4xl md:text-5xl font-bold text-white">
               <span className="text-[#EB0028]">Accessibility</span> Statement
             </h1>
@@ -18,7 +24,7 @@ export default function AccessibilityPage() {
           {/* Content */}
           <div className="space-y-8 text-white leading-relaxed text-center">
             <p className="text-lg">
-              TEDx UOK is committed to ensuring digital accessibility for people
+              <TedX /> is committed to ensuring digital accessibility for people
               with disabilities. We are continually improving the user
               experience for everyone and applying the relevant accessibility
               standards.
@@ -118,25 +124,34 @@ export default function AccessibilityPage() {
 
             <div className="space-y-4">
               <h2 className="text-2xl font-semibold !mb-6">
-                Requesting{" "}
-                <span className="text-[#EB0028]">Accommodations</span>
+                Assistance <span className="text-[#EB0028]">Contact</span>
               </h2>
               <p>
-                If you require specific accommodations to attend TEDx UOK,
-                please contact us at least two weeks before the event at{" "}
-                <a
-                  href="mailto:accessibility@tedxuok.com"
-                  className="!font-semibold hover:text-[#B09F8D] underline"
-                >
-                  accessibility@tedxuok.com
-                </a>
+                If you require specific accommodations to attend <TedX />,
+                please contact us at least two weeks before the event.
               </p>
+              <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-6 hover:border-[#EB0028]/20 transition-all duration-300">
+                <div className="flex flex-col gap-3 items-center justify-center">
+                  <a
+                    href="mailto:accessibility@tedxuok.com"
+                    className="flex items-center gap-2 !font-semibold hover:text-[#B09F8D] transition-colors"
+                  >
+                    <span className="text-[#EB0028] mt-1">✉</span> accessibility@tedxuok.com
+                  </a>
+                  <a
+                    href="tel:+94123456789"
+                    className="flex items-center gap-2 !font-semibold hover:text-[#B09F8D] transition-colors"
+                  >
+                    <span className="text-[#EB0028]">📞</span> +94 123 456 789
+                  </a>
+                </div>
+              </div>
             </div>
 
             <div className="space-y-4">
               <h2 className="text-2xl !mb-6 font-semibold">Feedback</h2>
               <p>
-                We welcome feedback on the accessibility of TEDx UOK. If you
+                We welcome feedback on the accessibility of <TedX />. If you
                 encounter any barriers or have suggestions for improvement,
                 please contact us at{" "}
                 <a
