@@ -4,16 +4,16 @@ import Layout from "../components/layout/Layout";
 
 import HomePage from "../pages/Home/HomePage";
 import AboutPage from "../pages/About/AboutPage";
-import { SpeakersListPage } from "../pages/Speakers/SpeakersListPage";
-import { SpeakerDetailPage } from "../pages/Speakers/SpeakerDetailPage";
+// import { SpeakersListPage } from "../pages/Speakers/SpeakersListPage";
+// import { SpeakerDetailPage } from "../pages/Speakers/SpeakerDetailPage";
 import TeamPage from "../pages/Team/TeamPage";
 import PartnersPage from "../pages/Partners/PartnersPage";
 import ContactPage from "../pages/Contact/ContactPage";
 import RegistrationPage from "../pages/Registration/RegistrationPage";
 import AgendaPage from "../pages/Agenda/AgendaPage";
 import ThemePage from "../pages/Theme/Theme";
-import BlogListPage from "../pages/Blog/BlogListPage";
-import BlogPostPage from "../pages/Blog/BlogPostPage";
+// import BlogListPage from "../pages/Blog/BlogListPage";
+// import BlogPostPage from "../pages/Blog/BlogPostPage";
 import ImpactPage from "../pages/Impact/ImpactPage";
 import MediaPage from "../pages/PressAndMedia/PressAndMediaPage";
 import PastEventsPage from "../pages/PastEvents/PastEventsPage";
@@ -41,8 +41,8 @@ function AnimatedRoutes() {
       <Route path="/about" element={<div key={location.pathname} className="page-transition"><AboutPage /></div>} />
       <Route path="/theme" element={<div key={location.pathname} className="page-transition"><ThemePage /></div>} />
 
-      <Route path="/speakers" element={<div key={location.pathname} className="page-transition"><SpeakersListPage /></div>} />
-      <Route path="/speakers/:id" element={<div key={location.pathname} className="page-transition"><SpeakerDetailPage /></div>} />
+      {/* <Route path="/speakers" element={<div key={location.pathname} className="page-transition"><SpeakersListPage /></div>} />
+      <Route path="/speakers/:id" element={<div key={location.pathname} className="page-transition"><SpeakerDetailPage /></div>} /> */}
 
       <Route path="/agenda" element={<div key={location.pathname} className="page-transition"><AgendaPage /></div>} />
 
@@ -52,8 +52,8 @@ function AnimatedRoutes() {
       <Route path="/register" element={<div key={location.pathname} className="page-transition"><RegistrationPage /></div>} />
 
       {/* Blog */}
-      <Route path="/blog" element={<div key={location.pathname} className="page-transition"><BlogListPage /></div>} />
-      <Route path="/blog/:slug" element={<div key={location.pathname} className="page-transition"><BlogPostPage /></div>} />
+      {/* <Route path="/blog" element={<div key={location.pathname} className="page-transition"><BlogListPage /></div>} />
+      <Route path="/blog/:slug" element={<div key={location.pathname} className="page-transition"><BlogPostPage /></div>} /> */}
 
       {/* New Pages */}
       <Route path="/impact" element={<div key={location.pathname} className="page-transition"><ImpactPage /></div>} />
@@ -83,8 +83,6 @@ function AnimatedRoutes() {
     </Routes>
   );
 }
-
-import ScrollToTop from "../components/common/ScrollToTop";
 
 export default function AppRouter() {
   return (

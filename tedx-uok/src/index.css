@@ -50,9 +50,9 @@
 
     /* Legacy Hex variables from strictly brand-guided CSS (adapted to map to HSL where appropriate or kept as Hex if unique) */
     --black: #000000;
-    --white: #FFFFFF;
-    --card-bg: #0E0E0E;
-    --card-border: #1F1F1F;
+    --white: #ffffff;
+    --card-bg: #0e0e0e;
+    --card-border: #1f1f1f;
 
     /* Shadcn/UI Compatible Tokens */
     --background: 0 0% 0%;
@@ -252,9 +252,9 @@
     transform: translateY(8px);
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    .animation-delay-500 {
+      animation-delay: 500ms;
+    }
   }
 }
 
@@ -317,7 +317,8 @@
     animation-delay: 400ms;
   }
 
-  .animation-delay-500 {
-    animation-delay: 500ms;
+    .animation-delay-500 {
+      animation-delay: 500ms;
+    }
   }
 }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Calendar, Clock, MapPin, Mic } from "lucide-react"
-import { supabase } from "../../api/supabaseClient";
+import { Calendar, Clock, MapPin, Mic } from "lucide-react";
+import { supabase } from "../../lib/supabase";
 
 interface AgendaItem {
   agenda_item_id: string;
@@ -30,10 +30,28 @@ interface EventDetails {
   };
 }
 
+import { useSEO } from "../../hooks/useSEO";
+import { seoConfig } from "../../config/seo";
+
 const AgendaPage = () => {
+  useSEO(seoConfig.agenda);
   const [agendaItems, setAgendaItems] = useState<AgendaItem[]>([]);
   const [eventDetails, setEventDetails] = useState<EventDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Handle Window Resize to switch animation styles
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Set initial state
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     AOS.init({
@@ -62,14 +80,16 @@ const AgendaPage = () => {
       // Fetch event details
       const { data: eventData } = await supabase
         .from("events")
-        .select(`
+        .select(
+          `
           event_id,
           name,
           date,
           venues (
             name
           )
-        `)
+        `
+        )
         .eq("event_id", settingsData.current_event_id)
         .single();
 
@@ -78,14 +98,16 @@ const AgendaPage = () => {
       // Fetch agenda items with speaker info
       const { data: agendaData, error } = await supabase
         .from("agenda_items")
-        .select(`
+        .select(
+          `
           *,
           speakers (
             full_name,
             title,
             organization
           )
-        `)
+        `
+        )
         .eq("event_id", settingsData.current_event_id)
         .order("display_order", { ascending: true });
 
@@ -104,7 +126,7 @@ const AgendaPage = () => {
     return date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-      hour12: true
+      hour12: true,
     });
   };
 
@@ -175,25 +197,33 @@ const AgendaPage = () => {
 
           {agendaItems.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-400 text-lg">Agenda will be announced soon.</p>
+              <p className="text-gray-400 text-lg">
+                Agenda will be announced soon.
+              </p>
             </div>
           ) : (
             <div className="space-y-8 sm:space-y-12">
               {agendaItems.map((item, index) => {
                 const isLeft = index % 2 === 0;
+
+                // On mobile, always fade up. On desktop, zig-zag.
+                const aosAnimation = isMobile
+                  ? "fade-up"
+                  : (isLeft ? "fade-right" : "fade-left");
+
                 return (
                   <div
                     key={item.agenda_item_id}
                     className={`relative flex flex-col md:flex-row items-center md:justify-between w-full ${isLeft ? "" : "md:flex-row-reverse"
                       }`}
-                    data-aos={isLeft ? "fade-right" : "fade-left"}
+                    data-aos={aosAnimation}
                     data-aos-delay={index * 100}
                   >
                     {/* Content Card */}
                     <div
                       className={`w-full md:w-[45%] pl-12 sm:pl-16 md:pl-0 ${isLeft
-                        ? "md:pr-8 lg:pr-12 md:text-right"
-                        : "md:pl-8 lg:pl-12 md:text-left"
+                          ? "md:pr-8 lg:pr-12 md:text-right"
+                          : "md:pl-8 lg:pl-12 md:text-left"
                         }`}
                     >
                       <div className="group relative bg-[#0E0E0E] border border-[#1F1F1F] p-6 sm:p-8 rounded-xl transition-all duration-500 hover:border-[#EB0028]/40 hover:shadow-[0_4px_20px_-2px_rgba(235,0,40,0.1)]">
@@ -224,11 +254,17 @@ const AgendaPage = () => {
                                 <div className="p-1.5 sm:p-2 rounded-full bg-[#EB0028]/10 transition-all duration-300 group-hover:bg-[#EB0028]/20">
                                   <Mic className="w-3 h-3 sm:w-4 sm:h-4 text-[#EB0028]" />
                                 </div>
-                                <div className={`text-left ${isLeft ? "md:text-right" : ""}`}>
-                                  <div className="leading-tight">{item.speakers.full_name}</div>
+                                <div
+                                  className={`text-left ${isLeft ? "md:text-right" : ""
+                                    }`}
+                                >
+                                  <div className="leading-tight">
+                                    {item.speakers.full_name}
+                                  </div>
                                   <div className="text-gray-400 text-xs sm:text-sm mt-0.5 leading-tight">
                                     {item.speakers.title}
-                                    {item.speakers.organization && `, ${item.speakers.organization}`}
+                                    {item.speakers.organization &&
+                                      `, ${item.speakers.organization}`}
                                   </div>
                                 </div>
                               </div>
@@ -237,21 +273,25 @@ const AgendaPage = () => {
 
                           {!item.speaker_id && (
                             <div className="text-gray-400 italic text-sm sm:text-base transition-opacity duration-500 md:group-hover:opacity-0">
-                              {item.type === "Break" ? "Break" : "Event Logistics"}
+                              {item.type === "Break"
+                                ? "Break"
+                                : ""}
                             </div>
                           )}
 
                           {/* Description */}
                           <div className="hidden md:block opacity-0 translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
                             <p className="text-gray-300 text-sm leading-relaxed">
-                              {item.description || `A ${item.type.toLowerCase()} session.`}
+                              {item.description ||
+                                `A ${item.type.toLowerCase()} session.`}
                             </p>
                           </div>
 
                           {/* Description - Always visible on mobile */}
                           <div className="md:hidden mt-4 pt-4 border-t border-[#1F1F1F]">
                             <p className="text-gray-300 text-sm leading-relaxed">
-                              {item.description || `A ${item.type.toLowerCase()} session.`}
+                              {item.description ||
+                                `A ${item.type.toLowerCase()} session.`}
                             </p>
                           </div>
                         </div>

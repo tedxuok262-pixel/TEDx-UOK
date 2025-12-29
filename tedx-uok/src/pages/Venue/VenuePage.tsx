@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from "../../api/supabaseClient";
+import { supabase } from "../../lib/supabase";
+import Navbar from "../../components/layout/Navbar";
+import Footer from "../../components/layout/Footer";
 import Card from "../../components/ui/Card";
 import Section from "../../components/ui/Section";
 import { Button } from "../../components/ui/Button";
@@ -25,32 +26,35 @@ interface Venue {
   entry_guidelines?: string;
 }
 
+import { useSEO } from "../../hooks/useSEO";
+import { seoConfig } from "../../config/seo";
+
 const VenuePage: React.FC = () => {
+  useSEO(seoConfig.venue);
   const [venue, setVenue] = useState<Venue | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // Hardcoded map URLs as defaults or fallbacks
-  const GOOGLE_MAPS_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4094.3594164374313!2d79.91297847514686!3d6.9754031930253335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2597c8dde7e47%3A0x341e7e820c46d3ed!2sUniversity%20of%20Kelaniya!5e1!3m2!1sen!2slk!4v1766409794367!5m2!1sen!2slk";
-  const GOOGLE_MAPS_DIR_URL = 'https://www.google.com/maps/dir//Administrative+Building,+Kandy+Rd,+Kelaniya+11600/@7.0647808,79.9637504,15041m/data=!3m2!1e3!4b1!4m8!4m7!1m0!1m5!1m1!1s0x3ae2597c8dde7e47:0x341e7e820c46d3ed!2m2!1d79.9155534!2d6.9754032?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D';
+  const GOOGLE_MAPS_URL =
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4094.3594164374313!2d79.91297847514686!3d6.9754031930253335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2597c8dde7e47%3A0x341e7e820c46d3ed!2sUniversity%20of%20Kelaniya!5e1!3m2!1sen!2slk!4v1766409794367!5m2!1sen!2slk";
+  const GOOGLE_MAPS_DIR_URL =
+    "https://www.google.com/maps/dir//Administrative+Building,+Kandy+Rd,+Kelaniya+11600/@7.0647808,79.9637504,15041m/data=!3m2!1e3!4b1!4m8!4m7!1m0!1m5!1m1!1s0x3ae2597c8dde7e47:0x341e7e820c46d3ed!2m2!1d79.9155534!2d6.9754032?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D";
 
   const fetchVenue = async () => {
     try {
       setError(null);
       setLoading(true);
-      const response = await axios.get(`${SUPABASE_URL}/rest/v1/venues`, {
-        headers: {
-          apikey: SUPABASE_ANON_KEY,
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        },
-        params: {
-          select: '*',
-          limit: 1
-        }
-      });
+      const { data, error } = await supabase
+        .from("venues")
+        .select("*")
+        .limit(1);
 
-      if (response.data && response.data.length > 0) {
-        setVenue(response.data[0]);
+      if (error) {
+        console.error("Supabase error while fetching venue:", error);
+        setError("Failed to load venue information. Please try again later.");
+      } else if (data && data.length > 0) {
+        setVenue(data[0] as Venue);
       } else {
         setError("No venue information found.");
       }
@@ -121,7 +125,6 @@ const VenuePage: React.FC = () => {
     <div className="w-full min-h-screen bg-black text-white flex flex-col">
       {/* Inner container */}
       <div className="max-w-[1280px] mx-auto px-4 py-16 flex-grow w-full">
-
         {/* Header */}
         <header className="mb-12 text-center animate-on-scroll opacity-0">
           <h1 className="text-4xl font-bold tracking-tight mb-2 uppercase text-[#EB0028]">
@@ -163,7 +166,8 @@ const VenuePage: React.FC = () => {
             <Button
               variant="tedxPrimary"
               onClick={() => {
-                const url = venue.google_maps_dir_url ||
+                const url =
+                  venue.google_maps_dir_url ||
                   venue.google_maps_url ||
                   GOOGLE_MAPS_DIR_URL;
 
@@ -179,7 +183,10 @@ const VenuePage: React.FC = () => {
         </Section>
 
         {/* Venue Information */}
-        <Section title="Venue Information" className="animate-on-scroll opacity-0">
+        <Section
+          title="Venue Information"
+          className="animate-on-scroll opacity-0"
+        >
           <div className="grid md:grid-cols-2 gap-6">
             {/* Transport Info */}
             <Card className="group relative overflow-hidden border border-[#1F1F1F] bg-[#0a0a0a] hover:border-[#EB0028] transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(235,0,40,0.3)] hover:-translate-y-1 animate-on-scroll opacity-0">
@@ -201,7 +208,10 @@ const VenuePage: React.FC = () => {
             </Card>
 
             {/* Parking Info */}
-            <div className="animate-on-scroll opacity-0" style={{ animationDelay: "100ms" }}>
+            <div
+              className="animate-on-scroll opacity-0"
+              style={{ animationDelay: "100ms" }}
+            >
               <Card className="group relative overflow-hidden border border-[#1F1F1F] bg-[#0a0a0a] hover:border-[#EB0028] transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(235,0,40,0.3)] hover:-translate-y-1 h-full">
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center gap-4 mb-4">
@@ -222,7 +232,10 @@ const VenuePage: React.FC = () => {
             </div>
 
             {/* Accessibility Info */}
-            <div className="animate-on-scroll opacity-0" style={{ animationDelay: "200ms" }}>
+            <div
+              className="animate-on-scroll opacity-0"
+              style={{ animationDelay: "200ms" }}
+            >
               <Card className="group relative overflow-hidden border border-[#1F1F1F] bg-[#0a0a0a] hover:border-[#EB0028] transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(235,0,40,0.3)] hover:-translate-y-1 h-full">
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center gap-4 mb-4">
@@ -243,7 +256,10 @@ const VenuePage: React.FC = () => {
             </div>
 
             {/* Entry Guidelines */}
-            <div className="animate-on-scroll opacity-0" style={{ animationDelay: "300ms" }}>
+            <div
+              className="animate-on-scroll opacity-0"
+              style={{ animationDelay: "300ms" }}
+            >
               <Card className="group relative overflow-hidden border border-[#1F1F1F] bg-[#0a0a0a] hover:border-[#EB0028] transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(235,0,40,0.3)] hover:-translate-y-1 h-full">
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center gap-4 mb-4">
