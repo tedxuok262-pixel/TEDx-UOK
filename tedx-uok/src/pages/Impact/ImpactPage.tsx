@@ -116,18 +116,16 @@ const ImpactPage = () => {
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <div className="w-full min-h-screen bg-black text-white">
-      <Navbar />
-
-      {/* Hero Section */}
-      <div className="pt-24">
-        <PageHero
-          title="Social Impact"
-          subtitle="Driving positive change through ideas and action."
-          className="animate-on-scroll opacity-0"
-        />
-      </div>
+    return (
+        <div className="w-full min-h-screen bg-black text-white">
+            {/* Hero Section */}
+            <div className="pt-24">
+                <PageHero
+                    title="Social Impact"
+                    subtitle="Driving positive change through ideas and action."
+                    className="animate-on-scroll opacity-0"
+                />
+            </div>
 
       {/* Impact Mission */}
       <Section className="text-center mb-16 animate-on-scroll opacity-0 w-full max-w-[1280px] mx-auto">
@@ -313,35 +311,7 @@ const ImpactPage = () => {
                     className="w-10 h-10 text-gray-500 group-hover:text-[#EB0028] transition-colors duration-500"
                   />
                 </div>
-                {/* Partner Type Label: Subtle editorial typography */}
-                <span className="text-[9px] uppercase tracking-[0.3em] text-gray-500 mt-4 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                  {partner.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* Stats & Reach */}
-      <Section className="mb-16 animate-on-scroll opacity-0 w-full max-w-[1280px] mx-auto">
-        <div className="grid md:grid-cols-4 gap-6 text-center">
-          {[
-            { label: "Community Members", value: "500+" },
-            { label: "Trees Planted", value: "120" },
-            { label: "Hours Volunteered", value: "1000+" },
-            { label: "Waste Reduced", value: "80%" },
-          ].map((stat, index) => (
-            <div key={index} className="p-6">
-              <div className="text-5xl font-bold text-[#EB0028] mb-2">
-                <CountUp end={parseInt(stat.value.replace(/\D/g, ""))} />
-                {stat.value.replace(/[0-9]/g, "")}
-              </div>
-              <div className="text-gray-300 font-light uppercase tracking-widest text-sm">
-                {stat.label}
-              </div>
-            </div>
-          ))}
+            </Section>
         </div>
       </Section>
 
